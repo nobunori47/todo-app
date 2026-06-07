@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo リスト</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #f5f5f5; }
+    h1 { font-size: 24px; margin-bottom: 24px; }
+    .btn { padding: 10px 20px; background: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; font-size: 14px; }
+    .btn-sm { padding: 6px 12px; font-size: 13px; background: #64748b; color: white; border-radius: 6px; text-decoration: none; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
+    th { background: #f8fafc; font-weight: 500; color: #64748b; }
+    .empty { text-align: center; padding: 40px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <h1>📝 Todo リスト</h1>
+  <a href="/add" class="btn">＋ 新しいタスクを追加</a>
+
+  <br><br>
+
+  {% if todos %}
+  <table>
+    <thead>
+      <tr>
+        <th>タイトル</th>
+        <th>内容</th>
+        <th>期日</th>
+        <th>作成日時</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todo in todos %}
+      <tr>
+        <td>{{ todo.タイトル }}</td>
+        <td>{{ todo.内容 }}</td>
+        <td>{{ todo.期日 }}</td>
+        <td>{{ todo.作成日時 }}</td>
+        <td><a href="/edit/{{ todo.id }}" class="btn-sm">編集</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty">タスクがまだありません。追加してみましょう！</div>
+  {% endif %}
+</body>
+</html>
