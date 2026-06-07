@@ -3,6 +3,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from dotenv import load_dotenv
 import os
+import json
 from datetime import datetime
 import uuid
 
@@ -11,9 +12,16 @@ load_dotenv()
 app = Flask(__name__)
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-creds = Credentials.from_service_account_file(
-    os.getenv("GOOGLE_CREDENTIALS_FILE"), scopes=SCOPES
-)
+
+creds_json = os.getenv("GOOGLE_CREDENTIALS_JSON")
+if creds_json:
+    creds_info = json.loads(creds_json)
+    creds = Credentials.from_service_account_info(creds_info, scopes=SCOPES)
+else:
+    creds = Credentials.from_service_account_file(
+        os.getenv("GOOGLE_CREDENTIALS_FILE"), scopes=SCOPES
+    )
+
 gc = gspread.authorize(creds)
 sheet = gc.open_by_key(os.getenv("SPREADSHEET_ID")).worksheet("Todo")
 
