@@ -4,26 +4,33 @@
   <meta charset="UTF-8">
   <title>Todo リスト</title>
   <style>
-    body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #f5f5f5; }
+    body { font-family: sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; background: #f5f5f5; }
     h1 { font-size: 24px; margin-bottom: 24px; }
     .btn { padding: 10px 20px; background: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; font-size: 14px; }
     .btn-sm { padding: 6px 12px; font-size: 13px; background: #64748b; color: white; border-radius: 6px; text-decoration: none; }
+    .btn-del { padding: 6px 12px; font-size: 13px; background: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    .btn-ai { padding: 6px 12px; font-size: 13px; background: #8b5cf6; color: white; border-radius: 6px; text-decoration: none; }
     table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
     th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
     th { background: #f8fafc; font-weight: 500; color: #64748b; }
     .empty { text-align: center; padding: 40px; color: #94a3b8; }
+    .priority-high { background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+    .priority-mid  { background: #fef9c3; color: #854d0e; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+    .priority-low  { background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+    .due-red    { color: #dc2626; font-weight: 600; }
+    .due-orange { color: #d97706; font-weight: 600; }
   </style>
 </head>
 <body>
   <h1>📝 Todo リスト</h1>
   <a href="/add" class="btn">＋ 新しいタスクを追加</a>
-
   <br><br>
 
   {% if todos %}
   <table>
     <thead>
       <tr>
+        <th>優先度</th>
         <th>タイトル</th>
         <th>内容</th>
         <th>期日</th>
@@ -34,11 +41,28 @@
     <tbody>
       {% for todo in todos %}
       <tr>
+        <td>
+          {% if todo.priority == '高' %}
+            <span class="priority-high">高</span>
+          {% elif todo.priority == '中' %}
+            <span class="priority-mid">中</span>
+          {% else %}
+            <span class="priority-low">低</span>
+          {% endif %}
+        </td>
         <td>{{ todo.タイトル }}</td>
         <td>{{ todo.内容 }}</td>
-        <td>{{ todo.期日 }}</td>
+        <td class="{% if todo.due_color == 'red' %}due-red{% elif todo.due_color == 'orange' %}due-orange{% endif %}">
+          {{ todo.期日 }}
+        </td>
         <td>{{ todo.作成日時 }}</td>
-        <td><a href="/edit/{{ todo.id }}" class="btn-sm">編集</a></td>
+        <td style="display:flex; gap:6px; align-items:center;">
+          <a href="/edit/{{ todo.id }}" class="btn-sm">編集</a>
+          <a href="/decompose/{{ todo.id }}" class="btn-ai">🤖 AI分解</a>
+          <form action="/delete/{{ todo.id }}" method="POST" onsubmit="return confirm('削除しますか？')">
+            <button type="submit" class="btn-del">削除</button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

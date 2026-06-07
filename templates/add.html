@@ -8,7 +8,7 @@
     h1 { font-size: 24px; margin-bottom: 24px; }
     .card { background: white; border-radius: 8px; padding: 24px; }
     label { display: block; font-size: 14px; color: #64748b; margin-bottom: 6px; margin-top: 16px; }
-    input, textarea { width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 15px; box-sizing: border-box; }
+    input, textarea, select { width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 15px; box-sizing: border-box; }
     textarea { height: 100px; resize: vertical; }
     .btn { margin-top: 20px; width: 100%; padding: 12px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
     a { display: block; text-align: center; margin-top: 12px; color: #64748b; font-size: 14px; }
@@ -26,6 +26,13 @@
 
       <label>期日</label>
       <input type="date" name="due_date" required>
+
+      <label>優先度</label>
+      <select name="priority">
+        <option value="高">🔴 高</option>
+        <option value="中" selected>🟡 中</option>
+        <option value="低">🟢 低</option>
+      </select>
 
       <button type="submit" class="btn">追加する</button>
     </form>

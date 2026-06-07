@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>AIタスク分解</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; background: #f5f5f5; }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    .card { background: white; border-radius: 8px; padding: 24px; margin-bottom: 16px; }
+    .label { font-size: 12px; color: #64748b; margin-bottom: 6px; }
+    .title { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+    .content { font-size: 14px; color: #64748b; }
+    .subtasks { white-space: pre-wrap; font-size: 15px; line-height: 2; }
+    a { display: block; text-align: center; margin-top: 24px; color: #2563eb; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>🤖 AIタスク分解</h1>
+
+  <div class="card">
+    <div class="label">タスク</div>
+    <div class="title">{{ todo.タイトル }}</div>
+    <div class="content">{{ todo.内容 }}</div>
+  </div>
+
+  <div class="card">
+    <div class="label">AIが分解したサブタスク</div>
+    <div class="subtasks">{{ subtasks }}</div>
+  </div>
+
+  <a href="/">← 一覧に戻る</a>
+</body>
+</html>
